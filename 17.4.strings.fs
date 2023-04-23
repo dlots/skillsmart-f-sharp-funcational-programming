@@ -5,11 +5,15 @@ let rec pow(s, n) =
     | _ -> pow(s, n-1) + s
 
 // 17.2
-let rec isIthChar(s: string, n, c) = s.[n] = c
+let rec isIthChar(s, n, c) =
+    match n with
+    | i when i < 0 -> false
+    | i when i >= String.length s -> false
+    | _ -> s.[n] = c
 
 // 17.3
-let rec occFromIth(s, n, c) =
+let rec occFromIth(s: string, n, c) =
     match n with 
     | i when i >= String.length s -> int 0
-    | i when s.[i] = c -> occFromIth(s, n+1, c) + 1
-    | _ -> occFromIth(s, n+1, c)
+    | i when i < 0 || s.[i] <> c -> occFromIth(s, n+1, c)
+    | _ -> occFromIth(s, n+1, c) + 1
