@@ -34,13 +34,13 @@ let rec intersect (xs1, xs2) =
 
 // // 40.2.4
 let rec plus (xs1, xs2) =
-    let rec iteration(xs1, xs2, conjunction) =
+    let rec iteration(xs1, xs2, result) =
        match xs1, xs2 with
-       | head1 :: tail1, head2 :: tail2 when head1 = head2 -> iteration(tail1, tail2, conjunction @ [head1])
-       | head1 :: tail1, head2 :: _ when head1 < head2 -> iteration(tail1, xs2, conjunction @ [head1])
-       | head1 :: _, head2 :: tail2 when head1 > head2 -> iteration(xs1, tail2, conjunction @ [head2])
-       | [], _ -> conjunction @ xs2
-       | _, [] -> conjunction @ xs1
+       | head1 :: tail1, head2 :: tail2 when head1 = head2 -> iteration(tail1, tail2, result @ [head1; head1])
+       | head1 :: tail1, head2 :: _ when head1 < head2 -> iteration(tail1, xs2, result @ [head1])
+       | head1 :: _, head2 :: tail2 when head1 > head2 -> iteration(xs1, tail2, result @ [head2])
+       | [], _ -> result @ xs2
+       | _, [] -> result @ xs1
        | _, _ -> []
     iteration(xs1, xs2, [])
     
